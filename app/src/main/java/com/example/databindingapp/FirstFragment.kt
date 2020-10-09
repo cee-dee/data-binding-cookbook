@@ -21,6 +21,7 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_first, container, false)
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
         return binding.root
     }
