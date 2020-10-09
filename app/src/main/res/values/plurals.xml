@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="timestamps_delivered">
+        <item quantity="one">one timestamp delivered</item>
+        <item quantity="other">%d timestamps delivered</item>
+    </plurals>
+</resources>
