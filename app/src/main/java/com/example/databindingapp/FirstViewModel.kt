@@ -8,8 +8,9 @@ import java.time.LocalDateTime
 
 class FirstViewModel : ViewModel() {
 
+    private var count = 0
+
     val dateEmitCount = liveData {
-        var count = 0
         while (true) {
             count++
             emit(count)
@@ -19,6 +20,10 @@ class FirstViewModel : ViewModel() {
 
     val date = dateEmitCount.map {
         LocalDateTime.now().toString()
+    }
+
+    fun reset() {
+        count = 0
     }
 
 }
