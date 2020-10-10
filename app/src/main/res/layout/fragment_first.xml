@@ -18,7 +18,7 @@
             android:id="@+id/timestamp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@{viewModel.getDate()}"/>
+            android:text="@{@string/timestamp(viewModel.getDate())}"/>
 
     </FrameLayout>
 </layout>
