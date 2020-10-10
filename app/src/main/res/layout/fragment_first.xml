@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.databindingapp.FirstViewModel" />
     </data>
 
     <FrameLayout
@@ -15,7 +17,8 @@
         <TextView
             android:id="@+id/timestamp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text="@{viewModel.getDate()}"/>
 
     </FrameLayout>
 </layout>

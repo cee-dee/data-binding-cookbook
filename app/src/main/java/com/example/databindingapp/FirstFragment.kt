@@ -21,12 +21,8 @@ class FirstFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_first, container, false)
+        binding.viewModel = viewModel
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.timestamp.text = resources.getString(R.string.timestamp, viewModel.getDate())
     }
 
     override fun onDestroyView() {
