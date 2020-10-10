@@ -1,8 +1,7 @@
 package com.example.databindingapp
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import androidx.lifecycle.map
+import android.view.View
+import androidx.lifecycle.*
 import kotlinx.coroutines.delay
 import java.time.LocalDateTime
 
@@ -24,6 +23,13 @@ class FirstViewModel : ViewModel() {
 
     fun reset() {
         count = 0
+    }
+
+    private val _snackbarEvent = MutableLiveData<Event<SnackbarCommand>>()
+    val snackbarEvent: LiveData<Event<SnackbarCommand>> = _snackbarEvent
+
+    fun showSnackbar(text: String, anchor: View) {
+        _snackbarEvent.value = Event(SnackbarCommand(text, anchor))
     }
 
 }
