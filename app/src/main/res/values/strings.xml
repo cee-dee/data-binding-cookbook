@@ -2,4 +2,5 @@
     <string name="app_name">DataBindingApp</string>
 
     <string name="timestamp">Timestamp = %1$s</string>
+    <string name="reset">Reset</string>
 </resources>
