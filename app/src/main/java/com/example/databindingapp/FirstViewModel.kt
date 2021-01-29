@@ -15,21 +15,22 @@ class FirstViewModel : ViewModel() {
     val dateEmitCount = liveData {
         while (true) {
             enable.awaitTrue()
-
             count++
-            countAfterEnabling++
             emit(count)
-
-            if (countAfterEnabling >= 3) {
-                enable.value = false
-                countAfterEnabling = 0
-            }
-
             delay(1000 + (5000 * Math.random()).toLong())
         }
     }
 
-    val date = dateEmitCount.map {
+    private val dateEmitMonitor = dateEmitCount.map { count ->
+        countAfterEnabling++
+        if (countAfterEnabling >= 3) {
+            enable.value = false
+            countAfterEnabling = 0
+        }
+        count
+    }
+
+    val date = dateEmitMonitor.map {
         LocalDateTime.now().toString()
     }
 
