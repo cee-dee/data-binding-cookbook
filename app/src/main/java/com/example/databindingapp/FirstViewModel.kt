@@ -10,12 +10,21 @@ import java.time.LocalDateTime
 class FirstViewModel : ViewModel() {
 
     private var count = 0
+    private var countAfterEnabling = 0
 
     val dateEmitCount = liveData {
         while (true) {
             enable.awaitTrue()
+
             count++
+            countAfterEnabling++
             emit(count)
+
+            if (countAfterEnabling >= 3) {
+                enable.value = false
+                countAfterEnabling = 0
+            }
+
             delay(1000 + (5000 * Math.random()).toLong())
         }
     }
