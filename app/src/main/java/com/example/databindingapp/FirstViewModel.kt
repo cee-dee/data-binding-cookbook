@@ -36,23 +36,23 @@ class FirstViewModel : ViewModel() {
     }
 
     private var countAfterEnabling = 0
-
-    private val _enable: MediatorLiveData<Boolean> = MediatorLiveData()
-    val enable: MutableLiveData<Boolean> = _enable
-
-    init {
-        _enable.value = true
-        _enable.addSource(_enable.distinctUntilChanged()) {
-            if (it) {
-                countAfterEnabling = 0
+    val enable: MutableLiveData<Boolean> = TwoWayLiveData(
+            initialValue = true,
+            valueChangeCallback = { enable, _ ->
+                if (enable) {
+                    countAfterEnabling = 0
+                }
+                noChange
+            },
+            dependencyLiveData = dateEmitCount,
+            dependencyChangedCallback = { _, _ ->
+                countAfterEnabling++
+                if (countAfterEnabling >= 3) {
+                    false
+                } else {
+                    noChange
+                }
             }
-        }
-        _enable.addSource(dateEmitCount) {
-            countAfterEnabling++
-            if (countAfterEnabling >= 3) {
-                _enable.value = false
-            }
-        }
-    }
+    )
 
 }
