@@ -42,7 +42,7 @@
             android:onClick="@{() -> viewModel.reset()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/timestamp_delivered" />
+            app:layout_constraintTop_toBottomOf="@+id/switch_enable" />
 
         <Button
             android:id="@+id/button_snackbar"
@@ -55,6 +55,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_reset" />
 
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_enable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/enable"
+            android:checked="@={viewModel.enable}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timestamp_delivered" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -2,15 +2,18 @@ package com.example.databindingapp
 
 import android.view.View
 import androidx.lifecycle.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import java.time.LocalDateTime
 
+@ExperimentalCoroutinesApi
 class FirstViewModel : ViewModel() {
 
     private var count = 0
 
     val dateEmitCount = liveData {
         while (true) {
+            enable.awaitTrue()
             count++
             emit(count)
             delay(1000 + (5000 * Math.random()).toLong())
@@ -31,5 +34,7 @@ class FirstViewModel : ViewModel() {
     fun showSnackbar(text: String, anchor: View) {
         _snackbarEvent.value = Event(SnackbarCommand(text, anchor))
     }
+
+    val enable: MutableLiveData<Boolean> = MutableLiveData(true)
 
 }
