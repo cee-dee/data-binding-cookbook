@@ -10,7 +10,6 @@ import java.time.LocalDateTime
 class FirstViewModel : ViewModel() {
 
     private var count = 0
-    private var countAfterEnabling = 0
 
     val dateEmitCount = liveData {
         while (true) {
@@ -21,16 +20,7 @@ class FirstViewModel : ViewModel() {
         }
     }
 
-    private val dateEmitMonitor = dateEmitCount.map { count ->
-        countAfterEnabling++
-        if (countAfterEnabling >= 3) {
-            enable.value = false
-            countAfterEnabling = 0
-        }
-        count
-    }
-
-    val date = dateEmitMonitor.map {
+    val date = dateEmitCount.map {
         LocalDateTime.now().toString()
     }
 
@@ -45,6 +35,24 @@ class FirstViewModel : ViewModel() {
         _snackbarEvent.value = Event(SnackbarCommand(text, anchor))
     }
 
-    val enable: MutableLiveData<Boolean> = MutableLiveData(true)
+    private var countAfterEnabling = 0
+
+    private val _enable: MediatorLiveData<Boolean> = MediatorLiveData()
+    val enable: MutableLiveData<Boolean> = _enable
+
+    init {
+        _enable.value = true
+        _enable.addSource(_enable.distinctUntilChanged()) {
+            if (it) {
+                countAfterEnabling = 0
+            }
+        }
+        _enable.addSource(dateEmitCount) {
+            countAfterEnabling++
+            if (countAfterEnabling >= 3) {
+                _enable.value = false
+            }
+        }
+    }
 
 }
